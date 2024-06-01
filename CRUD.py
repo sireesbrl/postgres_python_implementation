@@ -1,3 +1,7 @@
+#connecting to a postgresql database and
+#creating a table 'person' and performing
+#various CRUD operations
+
 import psycopg
 from getpass import getpass
 
