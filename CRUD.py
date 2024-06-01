@@ -2,6 +2,7 @@ import psycopg
 from getpass import getpass
 
 def add_info():
+    #clear screen
     while True:
         f_name = input("Enter first name: ").strip()
         l_name = input("Enter last name: ").strip()
