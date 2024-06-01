@@ -23,9 +23,8 @@ with psycopg.connect("dbname=postgres user=sirees password=sirees host=localhost
         )
         #except psycopg.errors.DuplicateTable:
             #print("Table 'Person' already exists!")
-            #add_info()
         #else:
-        #print("Creating 'Person' table...")
+            #print("Creating 'Person' table...")
 
         add_info()
 
