@@ -15,6 +15,18 @@ def add_info():
             break
 
 
+def read_info():
+    record = cur.execute("""SELECT * FROM person""").fetchall()
+    print("ID    First Name     Last Name")
+    for row in record:
+        print(f"{row[0]}    {row[1]}    {row[2]}")
+
+def update_info():
+    pass
+
+def delete_info():
+    pass
+
 with psycopg.connect("dbname=postgres user=sirees password=sirees host=localhost") as conn:
     with conn.cursor() as cur:
         #try:
@@ -27,9 +39,5 @@ with psycopg.connect("dbname=postgres user=sirees password=sirees host=localhost
             #print("Creating 'Person' table...")
 
         add_info()
-
-        record = cur.execute("""SELECT * FROM person""").fetchall()
-        for row in record:
-            print(f"ID: {row[0]} First name: {row[1]} Last name: {row[2]}")
         conn.commit()
         conn.close()
