@@ -1,4 +1,4 @@
-#connecting to a postgresql database and creating a table 'person' and performing various CRUD operations
+#connecting to a postgresql database and performing various CRUD operations
 
 import psycopg
 from getpass import getpass
@@ -20,7 +20,15 @@ class Database:
             #    )
             #    print("Table 'Person' created...")
 
-
+    #def create_table(self):
+        #tname = input("Table name: ").strip()
+        #tfields = {"fieldname" : "constraints",}
+        #while True:
+        #    input fields
+        #    tfields[fieldname] = constraints
+        #    more? else break
+        #    create table
+    
     def add_info(self):
         #clear screen
         while True:
