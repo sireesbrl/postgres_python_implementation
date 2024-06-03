@@ -12,8 +12,8 @@ class Database:
         self.host_add = host_add
         self.port_no = port_no
 
-        with psycopg.connect(f"dbname={self.db} user={self.user_name} password={self.passwd} host={self.host_add} port={self.port_no}") as conn:
-            pass
+        #with psycopg.connect(f"dbname={self.db} user={self.user_name} password={self.passwd} host={self.host_add} port={self.port_no}") as conn:
+            #pass
             #with conn.cursor() as cur:
             #    cur.execute(
             #        """CREATE TABLE person(ID serial PRIMARY KEY, First_Name text NOT NULL, Last_Name text NOT NULL)"""
@@ -32,6 +32,8 @@ class Database:
                     cur.execute(
                         """INSERT INTO person(First_Name, Last_Name) VALUES (%s, %s)""", (f_name, l_name)
                     )
+                conn.commit()
+                conn.close()
 
             choice = input("Add more? y/n: ").strip()
             if choice == "n":
@@ -42,12 +44,13 @@ class Database:
     def read_info(self):
         #clear screen
         with psycopg.connect(f"dbname={self.db} user={self.user_name} password={self.passwd} host={self.host_add} port={self.port_no}") as conn:
-                with conn.cursor() as cur:
-                    record = cur.execute("""SELECT * FROM person""").fetchall()
-                    #add proper grid view
-                    print("ID      First Name      Last Name")              
-                    for row in record:
-                        print(f"{row[0]}       {row[1]}          {row[2]}")
+            with conn.cursor() as cur:
+                record = cur.execute("""SELECT * FROM person""").fetchall()
+                #add proper grid view
+                print("ID      First Name      Last Name")              
+                for row in record:
+                    print(f"{row[0]}       {row[1]}          {row[2]}")
+            conn.close()
 
     def update_info(self):
         self.read_info()
@@ -56,20 +59,24 @@ class Database:
         f_name = input("First name to: ").strip()
         l_name = input("Last name to: ").strip()
         with psycopg.connect(f"dbname={self.db} user={self.user_name} password={self.passwd} host={self.host_add} port={self.port_no}") as conn:
-                with conn.cursor() as cur:
-                    cur.execute(
-                        """UPDATE person SET First_Name = %s, Last_Name = %s WHERE ID = %s""", (f_name, l_name, choice)
-                    )
+            with conn.cursor() as cur:
+                cur.execute(
+                    """UPDATE person SET First_Name = %s, Last_Name = %s WHERE ID = %s""", (f_name, l_name, choice)
+                )
+            conn.commit()
+            conn.close()            
 
     def delete_info(self):
         self.read_info()
         
         choice = int(input("Enter ID: ").strip())
         with psycopg.connect(f"dbname={self.db} user={self.user_name} password={self.passwd} host={self.host_add} port={self.port_no}") as conn:
-                with conn.cursor() as cur:
-                    cur.execute(
-                        """DELETE FROM person WHERE ID = %s""", (choice)
-                    )
+            with conn.cursor() as cur:
+                cur.execute(
+                    """DELETE FROM person WHERE ID = %s""", (choice)
+                )
+            conn.commit()
+            conn.close()
 
 def operate_db(db):
     print("Options Available")
