@@ -1,4 +1,5 @@
 #connecting to a postgresql database and performing various CRUD operations
+#can be refined for further functionalities
 
 import psycopg
 from getpass import getpass
